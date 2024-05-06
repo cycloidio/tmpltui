@@ -133,6 +133,8 @@ func main() {
 		cwd:        cwd,
 		tmpldata:   loadTmplData(),
 	}
+	m.original.CharLimit = 5000
+	m.rendered.CharLimit = 5000
 	_, err = tea.NewProgram(&m, tea.WithOutput(os.Stderr)).Run()
 	if err != nil {
 		fmt.Println(err)
