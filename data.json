@@ -1,5 +1,7 @@
 {
+	"left_delimiter": "($",
 	"right_delimiter": "$)",
-	"this": "cool",
-	"that": 42
+	"project_owner_canonical": "john_smith",
+	"project": "awesome",
+	"environment": "prod"
 }

@@ -1,0 +1,33 @@
+---
+version: '3'
+name: getting-started
+canonical: stack-getting-started
+status: public
+keywords:
+  - aws
+  - compute
+  - provider:aws
+description: |
+  Getting started stack purpose is to ovver a easy to use Cycloid stack during onboarding process.
+  This stack offer on multi cloud provider to create a default compute instance.
+author: ($ .project_owner_canonical$)
+image: https://raw.githubusercontent.com/cycloid-community-catalog/stack-getting-started/master/icon.png
+technologies:
+  - technology: AWS
+    version: n/a
+config:
+  aws:
+    name: AWS
+    description: Create an Elastic Compute Cloud (EC2)
+    cloud_provider: aws
+    pipeline:
+      pipeline:
+        path: pipeline/aws/pipeline.yml
+      variables:
+        path: pipeline/aws/variables.sample.yml
+        destination: ($ .project $)/pipeline/($ .environment $)/variables.yml
+    terraform:
+      config:
+        destination: ($ .project $)/terraform/($ .environment $)/main.tf
+        path: terraform/aws/main.tf.sample
+
