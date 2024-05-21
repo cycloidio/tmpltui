@@ -13,7 +13,7 @@ import (
 
 func loadTmplData() map[string]any {
 	ret := map[string]any{}
-	data, err := os.ReadFile("data.json")
+	data, err := os.ReadFile(config)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -28,10 +28,10 @@ func loadTmplData() map[string]any {
 // loadFile reads the file and attempt to render it as a template, returns
 // the original file, the rendered. In case of errors the returned value
 // will contain the error text.
-func loadFile(fpath string, tdata map[string]any) (string, string) {
+func loadFile(fpath string, tdata map[string]any) (string, string, error) {
 	fdata, err := os.ReadFile(fpath)
 	if err != nil {
-		return fmt.Sprintf("error reading file %s: %+v\n", fpath, err), ""
+		return fmt.Sprintf("error reading file %s: %+v\n", fpath, err), "", nil
 	}
 	t := template.New(fpath).Option("missingkey=zero").Funcs(sprig.FuncMap())
 
@@ -40,16 +40,16 @@ func loadFile(fpath string, tdata map[string]any) (string, string) {
 	fstring := string(fdata)
 	t, err = t.Parse(fstring)
 	if err != nil {
-		return fstring, fmt.Sprintf("error parsing template %s: %+v\n", fpath, err)
+		return fstring, fmt.Sprintf("error parsing template %s: %+v\n", fpath, err), err
 	}
 
 	var buff bytes.Buffer
 	err = t.Execute(&buff, tdata)
 	if err != nil {
-		return fstring, fmt.Sprintf("error rendering template %s: %+v\n", fpath, err)
+		return fstring, fmt.Sprintf("error rendering template %s: %+v\n", fpath, err), err
 	}
 
-	return fstring, buff.String()
+	return fstring, buff.String(), nil
 }
 
 const (

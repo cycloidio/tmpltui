@@ -1,8 +1,12 @@
-# tmpltui 
+# tmpl
 
-This is a small TUI to pick a template file and render it, the original file and the rendered result are shown side by side.
 
-The `data.json` file contains the data that is used to render the template.
+This is a small CLI to explore and render tmaplated files. 
+You can either start the TUI with the `tui` subcommand or print to stdout the rendered file with the `render` subcommand.
+
+The TUI allows you to pick a template file and render it, the original file and the rendered result are shown side by side.
+
+The `data.json` file contains the data that is used to render the template, you can change the filename and path with the config flag.
 
 You can change the template delimiters by specifying in `data.json` a `left_delimiter` and a `right_delimiter` string.
 
@@ -38,6 +42,36 @@ wget https://raw.githubusercontent.com/cycloidio/tmpltui/main/example_cycloid.ya
 ```
 
 ```bash
-./tmpltui
+./tmpl tui
 ```
 From the prompt, select your `example_cycloid.yaml` template file, press `enter`, and then `f` to display it in full screen.
+
+To print the rendered file on stdout:
+```bash
+tmpl render -f example_cycloid.yaml
+```
+
+## Usage 
+
+```
+usage: tmpl [-h | -help] [-c | -config <path>] <command> [<args>]
+	
+options: 
+	-h, -help displays this text
+	-c, -config data and config used to render the template
+		default: data.json
+
+commands:
+
+render
+	renders the template to stdout
+	usage: tmpl render [-h | -help] [-f | -file <path>]
+	options: 
+		-h, -help displays this text
+		-f, -file path to template file
+			default: .cycloid.yaml
+
+tui
+	starts a tui to view the template and the rendered file side by side
+```
+

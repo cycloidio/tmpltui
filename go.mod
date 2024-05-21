@@ -1,4 +1,4 @@
-module cycloid.io/tmpltui
+module cycloid.io/tmpl
 
 go 1.21.3
 
