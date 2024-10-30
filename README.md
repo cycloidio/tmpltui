@@ -23,7 +23,7 @@ Precompiled binaries for released versions are available in the [release](https:
 Example:
 
 ```bash
-wget https://github.com/cycloidio/tmpltui/releases/download/v0.2.0/tmpltui-v0.2.0-linux-amd64.tar.gz
+wget https://github.com/cycloidio/tmpltui/releases/download/v0.3.0/tmpltui-v0.3.0-linux-amd64.tar.gz
 tar xf tmpltui-*.tar.gz
 ```
 
