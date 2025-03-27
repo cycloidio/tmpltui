@@ -6,7 +6,10 @@ import (
 )
 
 func printRender() {
-	data := loadTmplData()
+	data, err := loadTmplData()
+	if err != nil {
+		log.Fatalf("failed to load templating variables: '%v'", err)
+	}
 	_, rendered, err := loadFile(path, data)
 	if err != nil {
 		log.Fatal(err)

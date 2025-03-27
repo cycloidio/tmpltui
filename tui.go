@@ -148,12 +148,17 @@ func tui() {
 	fp.AllowedTypes = []string{}
 	fp.CurrentDirectory, _ = os.Getwd()
 
+	tmplData, err := loadTmplData()
+	if err != nil {
+		log.Fatalf("failed to load templating variables: '%v'", err)
+	}
+
 	m := model{
 		filepicker: fp,
 		original:   newTextarea(),
 		rendered:   newTextarea(),
 		cwd:        cwd,
-		tmpldata:   loadTmplData(),
+		tmpldata:   tmplData,
 		fpvisible:  true,
 		keymap:     newkeymap(),
 		help:       help.New(),

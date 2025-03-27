@@ -2,27 +2,63 @@ package main
 
 import (
 	"bytes"
+	"embed"
 	"encoding/json"
+	"errors"
 	"fmt"
-	"log"
 	"os"
 	"text/template"
 
 	"github.com/Masterminds/sprig/v3"
 )
 
-func loadTmplData() map[string]any {
-	ret := map[string]any{}
-	data, err := os.ReadFile(config)
-	if err != nil {
-		log.Fatal(err)
-	}
-	err = json.Unmarshal(data, &ret)
-	if err != nil {
-		log.Fatal(err)
+var (
+	//go:embed stack_templating.json
+	stackTemplating embed.FS
+
+	//go:embed blueprints.json
+	blueprints embed.FS
+)
+
+func loadTmplData() (map[string]any, error) {
+	values := map[string]any{}
+
+	if config != "" {
+		data, err := os.ReadFile(config)
+		if err != nil {
+			return nil, err
+		}
+		err = json.Unmarshal(data, &values)
+		if err != nil {
+			return nil, err
+		}
+
+		return values, nil
 	}
 
-	return ret
+	var data []byte
+	var err error
+	switch tmplType {
+	case "stacks":
+		data, err = stackTemplating.ReadFile("stack_templating.json")
+		if err != nil {
+			return nil, err
+		}
+	case "blueprints":
+		data, err = blueprints.ReadFile("blueprints.json")
+		if err != nil {
+			return nil, err
+		}
+	default:
+		return nil, errors.New(fmt.Sprintf("invalid templating type '%s', see usage for allowed values.", tmplType))
+	}
+
+	err = json.Unmarshal(data, &values)
+	if err != nil {
+		return nil, err
+	}
+
+	return values, nil
 }
 
 // loadFile reads the file and attempt to render it as a template, returns

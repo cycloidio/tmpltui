@@ -11,8 +11,7 @@ const (
 	
 options: 
 	-h, -help displays this text
-	-c, -config data and config used to render the template
-		default: data.json
+	-c, -config override the config for templating.
 
 commands:
 
@@ -22,6 +21,7 @@ render
 	options: 
 		-h, -help displays this text
 		-f, -file path to template file
+		-t, -type the type of templating, valid values are 'stacks' or 'blueprints'
 			default: .cycloid.yaml
 
 tui
@@ -32,20 +32,24 @@ tui
 options: 
 	-h, -help displays this text
 	-f, -file path to template file
+	-t, -type the type of templating, valid values are 'stacks' or 'blueprints'
 		default: .cycloid.yaml
 	`
 )
 
 var (
-	config string
-	path   string
+	tmplType, config, path string
 )
 
 func main() {
 
+	flag.StringVar(&tmplType, "t", "stacks", "the type of templating, valid values are 'stacks' or 'blueprints'")
+	flag.StringVar(&tmplType, "type", "stacks", "the type of templating, valid values are 'stacks' or 'blueprints'")
+	flag.Usage = func() { fmt.Print(usage) }
+
 	// global option
-	flag.StringVar(&config, "c", "data.json", "data and config used to render the template")
-	flag.StringVar(&config, "config", "data.json", "data and config used to render the template")
+	flag.StringVar(&config, "c", "", "data and config used to render the template")
+	flag.StringVar(&config, "config", "", "data and config used to render the template")
 	flag.Usage = func() { fmt.Print(usage) }
 
 	// render options
@@ -63,11 +67,13 @@ func main() {
 
 	cmd, args := args[0], args[1:]
 	switch cmd {
-
 	case "tui":
 		tui()
 	case "render":
-		renderFlags.Parse(args)
+		if err := renderFlags.Parse(args); err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
 		printRender()
 	default:
 		fmt.Printf("unrecognized command %q, expected 'tui' or 'render' subcommands", cmd)
