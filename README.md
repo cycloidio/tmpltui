@@ -1,7 +1,7 @@
 # tmpl
 
 
-This is a small CLI to explore and render tmaplated files. 
+This is a small CLI to explore and render tmaplated files.
 You can either start the TUI with the `tui` subcommand or print to stdout the rendered file with the `render` subcommand.
 
 The TUI allows you to pick a template file and render it, the original file and the rendered result are shown side by side.
@@ -52,22 +52,22 @@ To print the rendered file on stdout:
 tmpl render -f example_cycloid.yaml
 ```
 
-## Usage 
+## Usage
 
 ```
 usage: tmpl [-h | -help] [-c | -config <path>] <command> [<args>]
-	
-options: 
+
+options:
 	-h, -help displays this text
 	-c, -config data and config used to render the template
-		default: data.json
+	-t, -type the type of templating, valid values are 'stacks' or 'blueprints'. default 'stacks'
 
 commands:
 
 render
 	renders the template to stdout
 	usage: tmpl render [-h | -help] [-f | -file <path>]
-	options: 
+	options:
 		-h, -help displays this text
 		-f, -file path to template file
 			default: .cycloid.yaml

@@ -12,6 +12,7 @@ const (
 options: 
 	-h, -help displays this text
 	-c, -config override the config for templating.
+	-t, -type the type of templating, valid values are 'stacks' or 'blueprints'. default 'stacks'
 
 commands:
 
@@ -20,9 +21,7 @@ render
 	usage: tmpl render [-h | -help] [-f | -file <path>]
 	options: 
 		-h, -help displays this text
-		-f, -file path to template file
-		-t, -type the type of templating, valid values are 'stacks' or 'blueprints'
-			default: .cycloid.yaml
+		-f, -file path to template file. default: .cycloid.yaml
 
 tui
 	starts a tui to view the template and the rendered file side by side
@@ -31,9 +30,7 @@ tui
 	renderUsage = `usage: tmpl render [-h | -help] [-f | -file <path>]
 options: 
 	-h, -help displays this text
-	-f, -file path to template file
-	-t, -type the type of templating, valid values are 'stacks' or 'blueprints'
-		default: .cycloid.yaml
+	-f, -file path to template file. default: .cycloid.yaml
 	`
 )
 
