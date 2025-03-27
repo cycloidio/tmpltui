@@ -1,6 +1,6 @@
-module cycloid.io/tmpl
+module cycloid.io/cy-tmpl
 
-go 1.21.3
+go 1.22.12
 
 require (
 	github.com/Masterminds/sprig/v3 v3.2.3
