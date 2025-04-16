@@ -6,14 +6,14 @@ You can either start the TUI with the `tui` subcommand or print to stdout the re
 
 The TUI allows you to pick a template file and render it, the original file and the rendered result are shown side by side.
 
-The `data.json` file contains the data that is used to render the template, you can change the filename and path with the config flag.
+The `stack_templating.json` file contains the data that is used to render the template, you can change the filename and path with the config flag.
 
-You can change the template delimiters by specifying in `data.json` a `left_delimiter` and a `right_delimiter` string.
+You can change the template delimiters by specifying in `stack_templating.json` a `left_delimiter` and a `right_delimiter` string.
 
 
 ## Example
 
-A simple example configuration is in `example_cycloid.yaml`, you can change the data in `data.json` and see how the rendering changes.
+A simple example configuration is in `example_cycloid.yaml`, you can change the data in `stack_templating.json` and see how the rendering changes.
 
 
 ## Installation
@@ -30,10 +30,10 @@ tar xf tmpltui-*.tar.gz
 
 ## Getting started
 
-Get the `data.json` file that contains default Cycloid special variables.
+Get the `stack_templating.json` file that contains default Cycloid special variables.
 
 ```bash
-wget https://raw.githubusercontent.com/cycloidio/tmpltui/main/data.json
+wget https://raw.githubusercontent.com/cycloidio/tmpltui/main/stack_templating.json
 ```
 
 Get an example of a template.
